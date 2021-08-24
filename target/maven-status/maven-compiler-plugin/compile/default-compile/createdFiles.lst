@@ -1,0 +1,10 @@
+baubolp\clans\command\subcommand\type\CreateCommand.class
+baubolp\clans\util\MySQL.class
+baubolp\clans\Clans.class
+baubolp\clans\command\subcommand\type\HelpCommand.class
+baubolp\clans\clan\Clan.class
+baubolp\clans\clan\ClanManager.class
+baubolp\clans\command\ClanCommand.class
+baubolp\clans\command\subcommand\SubCommand.class
+baubolp\clans\command\subcommand\SubCommandManager.class
+baubolp\clans\Loader.class
