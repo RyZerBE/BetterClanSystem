@@ -52,7 +52,18 @@ public class InviteCommand extends SubCommand {
             return;
         }
 
+
+        if(user.getClan().getState() == Clan.CLOSE) {
+            sender.sendMessage(Clans.PREFIX + Color.RED + "You can't send the player an invitation because your clan is closed");
+            return;
+        }
+
         inviteUser.addClanRequest(user.getClan(), true);
         sender.sendMessage(Clans.PREFIX + Color.GREEN + "The player has been invited to join your clan");
+    }
+
+    @Override
+    public String getDescription() {
+        return "Invite a player in your clan";
     }
 }

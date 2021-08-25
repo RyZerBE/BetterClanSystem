@@ -33,4 +33,9 @@ public class ClanRequestCommand extends SubCommand {
 
         sender.sendMessage(stringBuilder.toString());
     }
+
+    @Override
+    public String getDescription() {
+        return "See your open clan requests";
+    }
 }

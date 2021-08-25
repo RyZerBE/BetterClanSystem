@@ -51,6 +51,11 @@ public class AcceptCommand extends SubCommand {
         }
 
         Clan clan = Clans.getClanManager().getClan(clanName);
+        if(clan.getState() == Clan.CLOSE) {
+            sender.sendMessage(Clans.PREFIX + Color.RED + "You can't accept the invitation because the clan is closed!");
+            return;
+        }
+
         user.removeClanRequest(clan, true);
         user.setClan(clan, true);
         sender.sendMessage(Clans.PREFIX + Color.GREEN + "You accepted the request");
