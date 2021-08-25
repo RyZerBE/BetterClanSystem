@@ -43,7 +43,7 @@ public class SetDisplayMessageCommand extends SubCommand {
         }
 
         String message = String.join(" ", args) + Color.RESET;
-        if(message.length() > 30) {
+        if(message.length() > 64) {
             sender.sendMessage(Clans.PREFIX + Color.RED + "Your message is too big!");
             return;
         }

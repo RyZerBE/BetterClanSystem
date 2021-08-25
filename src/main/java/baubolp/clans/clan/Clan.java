@@ -66,7 +66,7 @@ public class Clan {
         String finalMessage = message.replace("setmessage ", "");
         this.message = finalMessage;
         MySQL.createAsync(mySQL -> {
-            mySQL.execute("UPDATE `Clans` SET message=' + " + finalMessage + "' WHERE clan_name='" + this.name + "'");
+            mySQL.execute("UPDATE `Clans` SET message='" + finalMessage + "' WHERE clan_name='" + this.name + "'");
         }, e -> Clans.getInstance().getProxy().getLogger().error("Connection to clan database failed!"), null);
     }
 
