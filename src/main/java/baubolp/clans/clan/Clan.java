@@ -63,9 +63,10 @@ public class Clan {
     }
 
     public void setDisplayMessage(String message) {
-        this.message = message;
+        String finalMessage = message.replace("setmessage ", "");
+        this.message = finalMessage;
         MySQL.createAsync(mySQL -> {
-            mySQL.execute("UPDATE `ClanUsers` SET message=' + " + message + "' WHERE clan_name='" + this.name + "'");
+            mySQL.execute("UPDATE `Clans` SET message=' + " + finalMessage + "' WHERE clan_name='" + this.name + "'");
         }, e -> Clans.getInstance().getProxy().getLogger().error("Connection to clan database failed!"), null);
     }
 
@@ -80,7 +81,7 @@ public class Clan {
     public void setState(int state) {
         this.state = state;
         MySQL.createAsync(mySQL -> {
-            mySQL.execute("UPDATE `ClanUsers` SET status=' + " + state + "' WHERE clan_name='" + this.name + "'");
+            mySQL.execute("UPDATE `Clans` SET status=' + " + state + "' WHERE clan_name='" + this.name + "'");
         }, e -> Clans.getInstance().getProxy().getLogger().error("Connection to clan database failed!"), null);
     }
 
@@ -95,7 +96,7 @@ public class Clan {
     public void setColor(String color) {
         this.color = color;
         MySQL.createAsync(mySQL -> {
-            mySQL.execute("UPDATE `ClanUsers` SET color=' + " + color + "' WHERE clan_name='" + this.name + "'");
+            mySQL.execute("UPDATE `Clans` SET color=' + " + color + "' WHERE clan_name='" + this.name + "'");
         }, e -> Clans.getInstance().getProxy().getLogger().error("Connection to clan database failed!"), null);
     }
 

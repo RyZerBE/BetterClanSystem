@@ -40,8 +40,10 @@ public class RoleManager {
         if(this.LEADER_PRIORITY == 0) {
             for(Map.Entry entry : this.getRoleHashMap().entrySet()) {
                 Role role = (Role) entry.getValue();
-                if(role.getPriority() > this.LEADER_PRIORITY)
+                if(role.getPriority() > this.LEADER_PRIORITY) {
+                    System.out.println(role.getName() + " biggest priority");
                     this.LEADER_PRIORITY = role.priority;
+                }
             }
         }
 

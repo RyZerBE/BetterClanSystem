@@ -1,7 +1,6 @@
 package baubolp.clans.command.subcommand.type;
 
 import baubolp.clans.Clans;
-import baubolp.clans.clan.Clan;
 import baubolp.clans.command.subcommand.SubCommand;
 import baubolp.clans.player.User;
 import baubolp.clans.player.UserManager;
@@ -9,10 +8,10 @@ import dev.waterdog.waterdogpe.command.Command;
 import dev.waterdog.waterdogpe.command.CommandSender;
 import dev.waterdog.waterdogpe.logger.Color;
 
-public class DeleteClanCommand extends SubCommand {
+public class ClanRequestCommand extends SubCommand {
 
-    public DeleteClanCommand() {
-        super("delete");
+    public ClanRequestCommand() {
+        super("requests");
     }
 
     @Override
@@ -21,23 +20,17 @@ public class DeleteClanCommand extends SubCommand {
         if(!userManager.isRegistered(sender.getName())) return;
         User user = userManager.getUser(sender.getName());
 
-        if(!user.isInClan()) {
-            sender.sendMessage(Clans.PREFIX + Color.RED + "You are clanless");
+        if(user.getRequests().size() == 0) {
+            sender.sendMessage(Clans.PREFIX + Color.RED + "You have no clan requests");
             return;
         }
 
-        if(!user.isLeader()) {
-            sender.sendMessage(Clans.PREFIX + Color.RED + "The clan isn't yours!");
-            return;
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(Clans.PREFIX).append(Color.GOLD).append("Your clan requests:");
+        for(String clanName : user.getRequests()) {
+            stringBuilder.append("\n").append(Color.YELLOW).append(clanName);
         }
 
-        Clan clan = user.getClan();
-        clan.delete();
-        sender.sendMessage(Clans.PREFIX + Color.RED + "You deleted your clan successfully!");
-    }
-
-    @Override
-    public String getDescription() {
-        return "Delete your clan";
+        sender.sendMessage(stringBuilder.toString());
     }
 }

@@ -13,16 +13,21 @@ public class ClanCommand extends Command {
 
     public ClanCommand() {
         super("clan");
-        Clans.getInstance().getSubCommandManager().registerSubCommand(this, new HelpCommand());
-        Clans.getInstance().getSubCommandManager().registerSubCommand(this, new CreateCommand());
-        Clans.getInstance().getSubCommandManager().registerSubCommand(this, new DeleteClanCommand());
-        Clans.getInstance().getSubCommandManager().registerSubCommand(this, new KickCommand());
-        Clans.getInstance().getSubCommandManager().registerSubCommand(this, new SetDisplayMessageCommand());
-        Clans.getInstance().getSubCommandManager().registerSubCommand(this, new ColorCommand());
-        Clans.getInstance().getSubCommandManager().registerSubCommand(this, new StateCommand());
-        Clans.getInstance().getSubCommandManager().registerSubCommand(this, new JoinClanCommand());
-        Clans.getInstance().getSubCommandManager().registerSubCommand(this, new LeaveCommand());
-        Clans.getInstance().getSubCommandManager().registerSubCommand(this, new InfoCommand());
+        SubCommandManager subCommandManager = Clans.getInstance().getSubCommandManager();
+        subCommandManager.registerSubCommand(this, new HelpCommand());
+        subCommandManager.registerSubCommand(this, new CreateCommand());
+        subCommandManager.registerSubCommand(this, new DeleteClanCommand());
+        subCommandManager.registerSubCommand(this, new ClanRequestCommand());
+        subCommandManager.registerSubCommand(this, new InviteCommand());
+        subCommandManager.registerSubCommand(this, new AcceptCommand());
+        subCommandManager.registerSubCommand(this, new DeclineCommand());
+        subCommandManager.registerSubCommand(this, new KickCommand());
+        subCommandManager.registerSubCommand(this, new SetDisplayMessageCommand());
+        subCommandManager.registerSubCommand(this, new ColorCommand());
+        subCommandManager.registerSubCommand(this, new StateCommand());
+        subCommandManager.registerSubCommand(this, new JoinClanCommand());
+        subCommandManager.registerSubCommand(this, new LeaveCommand());
+        subCommandManager.registerSubCommand(this, new InfoCommand());
     }
 
     @Override

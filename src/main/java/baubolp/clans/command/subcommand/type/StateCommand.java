@@ -31,13 +31,13 @@ public class StateCommand extends SubCommand {
             return;
         }
 
-        if(user.hasPermission("state.update")) {
+        if(!user.hasPermission("state.update")) {
             sender.sendMessage(Clans.PREFIX + Color.RED + "Your role can't do that!");
             return;
         }
 
         if(args.length != 2) {
-            sender.sendMessage(Clans.PREFIX + Color.GREEN + "OPEN " + Color.GOLD + "INVITE " + Color.RED + " CLOSE");
+            sender.sendMessage(Clans.PREFIX + Color.GREEN + "OPEN " + Color.AQUA + "INVITE " + Color.RED + " CLOSE");
             return;
         }
 

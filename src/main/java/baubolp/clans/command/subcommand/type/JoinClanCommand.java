@@ -46,7 +46,7 @@ public class JoinClanCommand extends SubCommand {
         }
 
         Clan clan = clanManager.getClan(clanName);
-        if(clan.getState() == Clan.OPEN) {
+        if(clan.getState() != Clan.OPEN && !user.getPlayer().hasPermission("clan.admin")) {
             sender.sendMessage(Clans.PREFIX + Color.RED + "The clan isn't open for everyone!");
             return;
         }

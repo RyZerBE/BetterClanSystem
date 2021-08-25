@@ -31,22 +31,24 @@ public class SetDisplayMessageCommand extends SubCommand {
             return;
         }
 
-        if(user.hasPermission("state.update")) {
+        if(!user.hasPermission("displayMessage.update")) {
             sender.sendMessage(Clans.PREFIX + Color.RED + "Your role can't do that!");
             return;
         }
 
-        if(args.length != 2) {
+        if(args.length < 2) {
+            sender.sendMessage(Clans.PREFIX + Color.GREEN + "You have reset your clan information");
             user.getClan().setDisplayMessage("");
             return;
         }
 
         String message = String.join(" ", args) + Color.RESET;
         if(message.length() > 30) {
-            sender.sendMessage(Clans.PREFIX + Color.GREEN + "You have updated your clan information");
+            sender.sendMessage(Clans.PREFIX + Color.RED + "Your message is too big!");
             return;
         }
 
         user.getClan().setDisplayMessage(message);
+        sender.sendMessage(Clans.PREFIX + Color.GREEN + "You have updated your clan information");
     }
 }

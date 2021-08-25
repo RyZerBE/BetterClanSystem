@@ -9,15 +9,9 @@ import dev.waterdog.waterdogpe.command.Command;
 import dev.waterdog.waterdogpe.command.CommandSender;
 import dev.waterdog.waterdogpe.logger.Color;
 
-public class KickCommand extends SubCommand {
-
-    public KickCommand() {
-        super("kick");
-    }
-
-    @Override
-    public String getDescription() {
-        return "Kick a player from your clan";
+public class InviteCommand extends SubCommand {
+    public InviteCommand() {
+        super("invite");
     }
 
     @Override
@@ -31,12 +25,12 @@ public class KickCommand extends SubCommand {
             return;
         }
 
-        if(!user.hasPermission("member.kick")) {
+        if(!user.hasPermission("member.invite")) {
             sender.sendMessage(Clans.PREFIX + Color.RED + "Your role can't do that!");
             return;
         }
         if(args.length != 2) {
-            sender.sendMessage(Clans.PREFIX + Color.RED + "Please use: " + Color.YELLOW + "/clan kick <Name of Member>");
+            sender.sendMessage(Clans.PREFIX + Color.RED + "Please use: " + Color.YELLOW + "/clan invite <Name of Player>");
             return;
         }
 
@@ -45,25 +39,20 @@ public class KickCommand extends SubCommand {
             sender.sendMessage(Clans.PREFIX + Color.RED + "The player " + Color.YELLOW + playerName + Color.RED + " isn't registered!");
             return;
         }
-        User kickUser = userManager.getUser(playerName);
-        Clan clan = kickUser.getClan();
+        User inviteUser = userManager.getUser(playerName);
+        Clan clan = inviteUser.getClan();
 
-        if(clan == null) {
-            sender.sendMessage(Clans.PREFIX + Color.RED + "The player has no clan!");
+        if(clan != null) {
+            sender.sendMessage(Clans.PREFIX + Color.RED + "The player is already in the clan " + Color.YELLOW + clan.getName());
             return;
         }
 
-        if(!clan.getName().equals(user.getClan().getName())) {
-            sender.sendMessage(Clans.PREFIX + Color.RED + "The player isn't in your clan!");
+        if(inviteUser.alreadySentRequest(user.getClan().getName())) {
+            sender.sendMessage(Clans.PREFIX + Color.RED + "The player has already been invited to join your clan!");
             return;
         }
 
-        if(user.getRole().getPriority() <= kickUser.getRole().getPriority()) {
-            sender.sendMessage(Clans.PREFIX + Color.RED + "You cannot kick a player who has the same or a higher role!");
-            return;
-        }
-
-        kickUser.leaveClan(true);
-        sender.sendMessage(Clans.PREFIX + Color.RED + "You kicked the player " + Color.YELLOW + playerName);
+        inviteUser.addClanRequest(user.getClan(), true);
+        sender.sendMessage(Clans.PREFIX + Color.GREEN + "The player has been invited to join your clan");
     }
 }

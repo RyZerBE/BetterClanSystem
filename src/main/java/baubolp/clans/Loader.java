@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Loader {
-    //TODO: ACCEPT, INVITE, DECLINE, REQUESTS, RENAME, QUEUE
 
     public static void onStartup() {
         //CACHE ALL CLAN STUFF
@@ -21,6 +20,7 @@ public class Loader {
             ResultSet result = mySQL.executeQuery("SELECT * FROM Clans");
             ResultSet playerResult = mySQL.executeQuery("SELECT * FROM ClanUsers");
             ResultSet rolesResult = mySQL.executeQuery("SELECT * FROM ClanRoles");
+            ResultSet requestsResult = mySQL.executeQuery("SELECT * FROM ClanRequests");
             //CLANS
             try {
                 while (result.next()) {
@@ -45,7 +45,6 @@ public class Loader {
 
                     Role role = new Role(role_name, priority, new ArrayList<>(Arrays.asList(permissions.split(":"))));
                     Clans.getRoleManager().addRole(role);
-                    System.out.println(role_name + " found!");
                 }
                 mySQL.closeSet(rolesResult);
                 //PLAYERS
@@ -62,9 +61,20 @@ public class Loader {
 
                     user.setRole(role, false);
                     Clans.getUserManager().addUser(playerName, user);
-                    System.out.println(playerName + " registered");
                 }
                 mySQL.closeSet(playerResult);
+                //REQUESTS
+                while(requestsResult.next()) {
+                    String clan_name = requestsResult.getString("clan_name");
+                    String playerName = requestsResult.getString("playername");
+
+                    User user = Clans.getUserManager().getUser(playerName);
+                    if(user == null) continue;
+                    if(user.alreadySentRequest(clan_name)) continue;
+
+                    user.requests.add(clan_name);
+                }
+                mySQL.closeSet(requestsResult);
             }catch (SQLException e) {e.printStackTrace();}
         }, e -> Clans.getInstance().getProxy().getLogger().error("Connection to clan database failed!"), null);
 

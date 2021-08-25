@@ -33,9 +33,11 @@ public class InfoCommand extends SubCommand {
             return;
         }
 
-        String clanName = user.getClan().getName();
+        String clanName;
         if (args.length == 2)
             clanName = args[1];
+        else
+            clanName = user.getClan().getName();
 
         if (!clanManager.alreadyExist(clanName)) {
             sender.sendMessage(Clans.PREFIX + Color.RED + "The clan doesn't exist!");
@@ -54,7 +56,7 @@ public class InfoCommand extends SubCommand {
                 state = Color.GREEN + "OPEN";
                 break;
             case Clan.INVITE:
-                state = Color.GOLD + "ONLY INVITE";
+                state = Color.AQUA + "ONLY INVITE";
                 break;
             case Clan.CLOSE:
                 state = Color.RED + "CLOSED";
@@ -74,8 +76,12 @@ public class InfoCommand extends SubCommand {
                 .append("\n").append(Color.GOLD).append("Members of the clan:");
 
         for(User clanMember : Clans.getUserManager().getUserHashMap().values()) {
-            String onlineState = Color.DARK_GRAY + " (" + (clanMember.isOnline() ? Color.GREEN + "ONLINE" : Color.RED + "OFFLINE") + Color.DARK_GRAY + ")";
-            builder.append(Color.YELLOW).append(clanMember.getPlayerName()).append(Color.GOLD).append(user.getRole().getName()).append(onlineState);
+            if(!clanMember.isInClan()) continue;
+              if(clanMember.getClan().getName().equals(user.getClan().getName())) {
+                String onlineState = Color.DARK_GRAY + " (" + (clanMember.isOnline() ? Color.GREEN + "ONLINE" : Color.RED + "OFFLINE") + Color.DARK_GRAY + ")";
+                builder.append("\n").append(Color.YELLOW).append(clanMember.getPlayerName()).
+                        append(Color.AQUA).append(" ").append(clanMember.getRole().getName()).append(onlineState);
+            }
         }
 
         sender.sendMessage(builder.toString());

@@ -31,7 +31,7 @@ public class ColorCommand extends SubCommand {
             return;
         }
 
-        if(user.hasPermission("color.update")) {
+        if(!user.hasPermission("color.update")) {
             sender.sendMessage(Clans.PREFIX + Color.RED + "Your role can't do that!");
             return;
         }
