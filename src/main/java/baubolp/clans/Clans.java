@@ -3,6 +3,8 @@ package baubolp.clans;
 import baubolp.clans.clan.ClanManager;
 import baubolp.clans.command.ClanCommand;
 import baubolp.clans.command.subcommand.SubCommandManager;
+import baubolp.clans.player.UserManager;
+import baubolp.clans.role.RoleManager;
 import dev.waterdog.waterdogpe.command.CommandMap;
 import dev.waterdog.waterdogpe.plugin.Plugin;
 
@@ -14,6 +16,8 @@ public class Clans extends Plugin {
 
     private SubCommandManager subCommandManager;
     private static ClanManager clanManager;
+    private static UserManager userManager;
+    private static RoleManager roleManager;
 
     @Override
     public void onEnable() {
@@ -21,6 +25,8 @@ public class Clans extends Plugin {
         instance = this;
         subCommandManager = new SubCommandManager(this);
         clanManager = new ClanManager();
+        userManager = new UserManager();
+        roleManager = new RoleManager();
 
         this.boot();
     }
@@ -47,10 +53,11 @@ public class Clans extends Plugin {
     public SubCommandManager getSubCommandManager() {
         return subCommandManager;
     }
-
     public static ClanManager getClanManager() {
         return clanManager;
     }
+    public static UserManager getUserManager() { return userManager; }
+    public static RoleManager getRoleManager() { return roleManager; }
 
     public void runAsync(Runnable runnable) { this.getProxy().getScheduler().scheduleAsync(runnable); }
 }

@@ -4,6 +4,8 @@ import baubolp.clans.Clans;
 import baubolp.clans.clan.Clan;
 import baubolp.clans.clan.ClanManager;
 import baubolp.clans.command.subcommand.SubCommand;
+import baubolp.clans.player.User;
+import baubolp.clans.player.UserManager;
 import dev.waterdog.waterdogpe.command.Command;
 import dev.waterdog.waterdogpe.command.CommandSender;
 import dev.waterdog.waterdogpe.logger.Color;
@@ -23,6 +25,14 @@ public class CreateCommand extends SubCommand {
             sender.sendMessage(Clans.PREFIX + Color.RED + "Please use: " + Color.YELLOW + "/clan create <ClanName> <ClanTag>");
             return;
         }
+        UserManager userManager = Clans.getUserManager();
+        if(!userManager.isRegistered(sender.getName())) return;
+        User user = userManager.getUser(sender.getName());
+
+        if(user.isInClan()) {
+            sender.sendMessage(Clans.PREFIX + Color.RED + "You are already in the clan " + Color.YELLOW + user.getClan().getName());
+            return;
+        }
 
         String clanName = args[1];
         String clanTag = args[2];
@@ -39,11 +49,22 @@ public class CreateCommand extends SubCommand {
             return;
         }
 
+        if(clanName.length() > 16) {
+            sender.sendMessage(Clans.PREFIX + Color.RED + "Your clan name is too big!");
+            return;
+        }
+
+        if(clanTag.length() > 5) {
+            sender.sendMessage(Clans.PREFIX + Color.RED + "Your clan tag is too big!");
+            return;
+        }
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("d.M.y HH:mm");
         String date = dateFormat.format(new Date());
-        Clan clan = new Clan(clanName, clanTag, sender.getName(), "§e", date, 1000);
+        Clan clan = new Clan(clanName.replace(" ", ""), clanTag, sender.getName(), "§e", date, "Only advertising for your clan is allowed!", Clan.INVITE, 1000);
         clan.create();
+        user.setClan(clan, false);
+        user.setRole("Leader", false);
         sender.sendMessage(Clans.PREFIX + Color.GREEN + "Your clan " + Color.YELLOW + clanName + Color.GREEN + " were created!");
     }
 

@@ -3,8 +3,7 @@ package baubolp.clans.command;
 import baubolp.clans.Clans;
 import baubolp.clans.command.subcommand.SubCommand;
 import baubolp.clans.command.subcommand.SubCommandManager;
-import baubolp.clans.command.subcommand.type.CreateCommand;
-import baubolp.clans.command.subcommand.type.HelpCommand;
+import baubolp.clans.command.subcommand.type.*;
 import dev.waterdog.waterdogpe.ProxyServer;
 import dev.waterdog.waterdogpe.command.Command;
 import dev.waterdog.waterdogpe.command.CommandSender;
@@ -16,6 +15,14 @@ public class ClanCommand extends Command {
         super("clan");
         Clans.getInstance().getSubCommandManager().registerSubCommand(this, new HelpCommand());
         Clans.getInstance().getSubCommandManager().registerSubCommand(this, new CreateCommand());
+        Clans.getInstance().getSubCommandManager().registerSubCommand(this, new DeleteClanCommand());
+        Clans.getInstance().getSubCommandManager().registerSubCommand(this, new KickCommand());
+        Clans.getInstance().getSubCommandManager().registerSubCommand(this, new SetDisplayMessageCommand());
+        Clans.getInstance().getSubCommandManager().registerSubCommand(this, new ColorCommand());
+        Clans.getInstance().getSubCommandManager().registerSubCommand(this, new StateCommand());
+        Clans.getInstance().getSubCommandManager().registerSubCommand(this, new JoinClanCommand());
+        Clans.getInstance().getSubCommandManager().registerSubCommand(this, new LeaveCommand());
+        Clans.getInstance().getSubCommandManager().registerSubCommand(this, new InfoCommand());
     }
 
     @Override

@@ -24,4 +24,9 @@ public class HelpCommand extends SubCommand {
 
         sender.sendMessage(message.toString());
     }
+
+    @Override
+    public String getDescription() {
+        return "See the list of clan commands";
+    }
 }
