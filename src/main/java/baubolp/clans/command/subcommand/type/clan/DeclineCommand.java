@@ -1,4 +1,4 @@
-package baubolp.clans.command.subcommand.type;
+package baubolp.clans.command.subcommand.type.clan;
 
 import baubolp.clans.Clans;
 import baubolp.clans.clan.Clan;
@@ -9,17 +9,16 @@ import dev.waterdog.waterdogpe.command.Command;
 import dev.waterdog.waterdogpe.command.CommandSender;
 import dev.waterdog.waterdogpe.logger.Color;
 
-public class AcceptCommand extends SubCommand {
+public class DeclineCommand extends SubCommand {
 
-    public AcceptCommand() {
-        super("accept");
+    public DeclineCommand() {
+        super("decline");
     }
 
     @Override
     public String getDescription() {
-        return "Accept a clan request";
+        return "Decline a clan request";
     }
-
 
     @Override
     public void execute(CommandSender sender, Command parent, String[] args) {
@@ -28,7 +27,7 @@ public class AcceptCommand extends SubCommand {
         User user = userManager.getUser(sender.getName());
 
         if(args.length != 2) {
-            sender.sendMessage(Clans.PREFIX + Color.RED + "Please use: " + Color.YELLOW + "/clan accept <Name of Clan>");
+            sender.sendMessage(Clans.PREFIX + Color.RED + "Please use: " + Color.YELLOW + "/clan decline <Name of Clan>");
             return;
         }
 
@@ -50,14 +49,7 @@ public class AcceptCommand extends SubCommand {
             return;
         }
 
-        Clan clan = Clans.getClanManager().getClan(clanName);
-        if(clan.getState() == Clan.CLOSE) {
-            sender.sendMessage(Clans.PREFIX + Color.RED + "You can't accept the invitation because the clan is closed!");
-            return;
-        }
-
-        user.removeClanRequest(clan, true);
-        user.setClan(clan, true);
-        sender.sendMessage(Clans.PREFIX + Color.GREEN + "You accepted the request");
+        user.removeClanRequest(clanName, true);
+        sender.sendMessage(Clans.PREFIX + Color.GREEN + "You declined the request successfully");
     }
 }

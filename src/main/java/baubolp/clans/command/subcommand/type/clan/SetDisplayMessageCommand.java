@@ -1,4 +1,4 @@
-package baubolp.clans.command.subcommand.type;
+package baubolp.clans.command.subcommand.type.clan;
 
 import baubolp.clans.Clans;
 import baubolp.clans.clan.Clan;
