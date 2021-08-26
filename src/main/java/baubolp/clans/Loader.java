@@ -5,6 +5,7 @@ import baubolp.clans.listener.PlayerJoinListener;
 import baubolp.clans.listener.PlayerQuitListener;
 import baubolp.clans.player.User;
 import baubolp.clans.role.Role;
+import baubolp.clans.scheduler.CheckQueueTask;
 import baubolp.clans.util.MySQL;
 
 import java.sql.ResultSet;
@@ -81,6 +82,8 @@ public class Loader {
         //EVENTS
         new PlayerJoinListener().register();
         new PlayerQuitListener().register();
+        //TASKS
+        new CheckQueueTask().start();
     }
 
     public static void onShutdown() {

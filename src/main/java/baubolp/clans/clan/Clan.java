@@ -2,6 +2,7 @@ package baubolp.clans.clan;
 
 import baubolp.clans.Clans;
 import baubolp.clans.player.User;
+import baubolp.clans.queue.Subscriber;
 import baubolp.clans.util.MySQL;
 
 import java.util.Map;
@@ -18,8 +19,11 @@ public class Clan {
     public String color;
     public String createdDate;
     public String message;
+
     public int state;
     public int elo;
+
+    public Subscriber subscriber;
 
     public Clan(String name, String tag, String clan_owner, String color, String created, String message, int state, int elo) {
         this.name = name;
@@ -30,6 +34,7 @@ public class Clan {
         this.createdDate = created;
         this.state = state;
         this.message = message;
+        this.subscriber = null;
     }
 
     public String getName() {
@@ -145,5 +150,21 @@ public class Clan {
                 }
             }
         }
+    }
+
+    public boolean joinedQueue() {
+        return this.subscriber != null;
+    }
+
+    public void joinQueue(Subscriber subscriber) {
+        this.subscriber = subscriber;
+    }
+
+    public void leaveQueue() {
+        this.subscriber = null;
+    }
+
+    public Subscriber getSubscriber() {
+        return subscriber;
     }
 }
