@@ -122,7 +122,7 @@ public class User {
         RoleManager roleManager = Clans.getRoleManager();
         if(!roleManager.existRole(roleName)) return;
         this.role = roleManager.getRole(roleName);
-        System.out.println(this.playerName + " -> " + roleName);
+        //System.out.println(this.playerName + " -> " + roleName);
 
         if (mysql) {
             String playerName = getPlayerName();

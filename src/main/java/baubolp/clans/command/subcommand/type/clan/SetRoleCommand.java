@@ -14,7 +14,7 @@ import dev.waterdog.waterdogpe.logger.Color;
 public class SetRoleCommand extends SubCommand {
 
     public SetRoleCommand() {
-        super("");
+        super("role");
     }
 
     @Override

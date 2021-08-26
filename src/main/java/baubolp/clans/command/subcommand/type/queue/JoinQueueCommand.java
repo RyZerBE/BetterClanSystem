@@ -13,6 +13,7 @@ import dev.waterdog.waterdogpe.logger.Color;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class JoinQueueCommand extends SubCommand {
@@ -51,18 +52,20 @@ public class JoinQueueCommand extends SubCommand {
             return;
         }
 
-        boolean STOP = false;
         for(String playerName : players) {
-            User clanMember = Clans.getUserManager().getUser(playerName);
-            if(!clanMember.isOnline()) {
-                STOP = true;
-                break;
+           /* if(Collections.frequency(players, playerName) > 1) {
+                sender.sendMessage(Clans.PREFIX + Color.RED + "Please enter 4 participants!");
+                return;
+            }*/ //todo: after tests enable!!!
+            if(!Clans.getUserManager().isRegistered(playerName)) {
+                sender.sendMessage(Clans.PREFIX + Color.RED + "The specified players must be online and in your clan to join in a ClanWar!");
+                return;
             }
-        }
-
-        if(STOP) {
-            sender.sendMessage(Clans.PREFIX + Color.RED + "The specified players must be online to join in a ClanWar!");
-            return;
+            User clanMember = Clans.getUserManager().getUser(playerName);
+            if((!clanMember.isOnline()) || (!clan.getName().equals(clanMember.getClan().getName()))) {
+                sender.sendMessage(Clans.PREFIX + Color.RED + "The specified players must be online and in your clan to join in a ClanWar!");
+                return;
+            }
         }
 
         if(clan.joinedQueue()) {

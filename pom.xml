@@ -31,6 +31,13 @@
             <artifactId>mysql-connector-java</artifactId>
             <version>8.0.23</version>
         </dependency>
+        <dependency>
+            <groupId>com.cloudbridge</groupId>
+            <artifactId>CloudBridge</artifactId>
+            <version>1.0</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/src/main/resources/RyzerCloud-CloudBridge.jar</systemPath>
+        </dependency>
     </dependencies>
 
     <properties>

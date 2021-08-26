@@ -1,11 +1,13 @@
 package baubolp.clans.queue;
 
 
+import BauboLP.CloudBridge.CloudBridge;
+import BauboLP.Communication.Packets.CreateServerPacket;
 import baubolp.clans.Clans;
 import baubolp.clans.player.User;
-import dev.waterdog.waterdogpe.player.ProxiedPlayer;
+import baubolp.clans.util.MySQL;
+import dev.waterdog.waterdogpe.logger.Color;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,10 +40,14 @@ public class ClanWarQueueManager {
                 opponents.add(subscriber);
                 this.queue.remove(subscriber);
             }
-            
+
             if(opponents.size() == 2) {
+                String playerList = "";
                 boolean ABORT = false;
                 for (Subscriber subscriber : opponents) {
+                    if(!playerList.isEmpty()) playerList += ":";
+
+                    playerList += String.join(":", subscriber.getSubscribers());
                     for (String playerName : subscriber.getSubscribers()) {
                         User user = Clans.getUserManager().getUser(playerName);
                         if(!user.isOnline()) {
@@ -49,13 +55,22 @@ public class ClanWarQueueManager {
                             break;
                         }
                         user.getPlayer().sendMessage(Clans.PREFIX + Color.GREEN + "Match found! Prepare Match-Server...");
+                        user.getPlayer().sendTitle("§aMatch found!", "§7Are you ready?");
                     }
                     if(ABORT) {
                         subscriber.removeFromQueue(true);
                     }
                 }
 
-                //TODO: INSERT INTO QUEUE DATABASE + Start Server
+                CreateServerPacket createServerPacket = new CreateServerPacket();
+                createServerPacket.addData("groupName", "EloCWBW");
+                createServerPacket.addData("serverCount", "1");
+
+                String finalPlayerList = playerList;
+                MySQL.createAsync(current -> {
+                    current.execute("INSERT INTO `Queue`(`players`, `type`) VALUES ('" + finalPlayerList + "', 'elo')");
+                }, e -> Clans.getInstance().getProxy().getLogger().info("Connection to clan database failed!"), null);
+                CloudBridge.getCloud().sendPacket(createServerPacket);
             }
         }else {
             if(this.queueTick % 30 == 0) {
