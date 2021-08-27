@@ -64,7 +64,7 @@ public class ClanWarQueueManager {
 
                 CreateServerPacket createServerPacket = new CreateServerPacket();
                 createServerPacket.addData("groupName", "EloCWBW");
-                createServerPacket.addData("serverCount", "1");
+                createServerPacket.addData("count", "1");
 
                 String finalPlayerList = playerList;
                 MySQL.createAsync(current -> {
