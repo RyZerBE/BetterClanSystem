@@ -77,7 +77,7 @@ public class InfoCommand extends SubCommand {
 
         for(User clanMember : Clans.getUserManager().getUserHashMap().values()) {
             if(!clanMember.isInClan()) continue;
-              if(clanMember.getClan().getName().equals(user.getClan().getName())) {
+              if(clanMember.getClan().getName().equals(clanName)) {
                 String onlineState = Color.DARK_GRAY + " (" + (clanMember.isOnline() ? Color.GREEN + "ONLINE" : Color.RED + "OFFLINE") + Color.DARK_GRAY + ")";
                 builder.append("\n").append(Color.YELLOW).append(clanMember.getPlayerName()).
                         append(Color.AQUA).append(" ").append(clanMember.getRole().getName()).append(onlineState);

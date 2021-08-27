@@ -86,7 +86,7 @@ public class Clan {
     public void setState(int state) {
         this.state = state;
         MySQL.createAsync(mySQL -> {
-            mySQL.execute("UPDATE `Clans` SET status=' + " + state + "' WHERE clan_name='" + this.name + "'");
+            mySQL.execute("UPDATE `Clans` SET status='" + state + "' WHERE clan_name='" + this.name + "'");
         }, e -> Clans.getInstance().getProxy().getLogger().error("Connection to clan database failed!"), null);
     }
 
@@ -101,7 +101,7 @@ public class Clan {
     public void setColor(String color) {
         this.color = color;
         MySQL.createAsync(mySQL -> {
-            mySQL.execute("UPDATE `Clans` SET color=' + " + color + "' WHERE clan_name='" + this.name + "'");
+            mySQL.execute("UPDATE `Clans` SET color='" + color + "' WHERE clan_name='" + this.name + "'");
         }, e -> Clans.getInstance().getProxy().getLogger().error("Connection to clan database failed!"), null);
     }
 
@@ -129,8 +129,8 @@ public class Clan {
 
             for(User user : Clans.getUserManager().getUserHashMap().values()) {
                 if(!user.isInClan()) continue;
-                mySQL.execute("UPDATE `ClanUsers` SET clan_name='' WHERE playername='" + user.getPlayer().getName() + "'");
-                mySQL.execute("UPDATE `ClanUsers` SET role='Member' WHERE playername='" + user.getPlayer().getName() + "'");
+                mySQL.execute("UPDATE `ClanUsers` SET clan_name='' WHERE playername='" + user.getPlayerName() + "'");
+                mySQL.execute("UPDATE `ClanUsers` SET role='Member' WHERE playername='" + user.getPlayerName() + "'");
                 user.leaveClan(false);
                 user.setRole("Member", false);
             }
