@@ -129,6 +129,7 @@ public class Clan {
 
             for(User user : Clans.getUserManager().getUserHashMap().values()) {
                 if(!user.isInClan()) continue;
+                if(!user.getClan().getName().equals(this.name)) continue;
                 mySQL.execute("UPDATE `ClanUsers` SET clan_name='' WHERE playername='" + user.getPlayerName() + "'");
                 mySQL.execute("UPDATE `ClanUsers` SET role='Member' WHERE playername='" + user.getPlayerName() + "'");
                 user.leaveClan(false);
