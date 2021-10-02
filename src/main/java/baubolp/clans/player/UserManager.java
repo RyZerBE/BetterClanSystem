@@ -45,10 +45,11 @@ public class UserManager {
     }
 
     public void register(ProxiedPlayer player) {
-        User user = new User(player.getName(), null, Clans.getRoleManager().getRole("Member"));
-        MySQL.createAsync(mySQL -> {
-            mySQL.execute("INSERT INTO `ClanUsers`(`playername`) VALUES ('" + player.getName() + "')");
-        }, e -> Clans.getInstance().getProxy().getLogger().error("Connection to clan database failed!"), null);
+        String playerName = player.getName();
+        User user = new User(playerName, null, Clans.getRoleManager().getRole("Member"));
         this.addUser(user);
+        MySQL.createAsync(mySQL -> {
+            mySQL.execute("INSERT INTO `ClanUsers`(`playername`) VALUES ('" + playerName + "')");
+        }, e -> Clans.getInstance().getProxy().getLogger().error("Connection to clan database failed!"), null);
     }
 }

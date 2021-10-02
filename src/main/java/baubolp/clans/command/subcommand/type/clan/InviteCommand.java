@@ -40,6 +40,10 @@ public class InviteCommand extends SubCommand {
             return;
         }
         User inviteUser = userManager.getUser(playerName);
+        if(inviteUser == null) {
+            sender.sendMessage(Clans.PREFIX + Color.RED + "Something went wrong.. " + playerName + " and you have to be rejoin to use the clan system!");
+            return;
+        }
         Clan clan = inviteUser.getClan();
 
         if(clan != null) {

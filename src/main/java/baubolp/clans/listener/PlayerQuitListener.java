@@ -11,7 +11,7 @@ public class PlayerQuitListener {
     public void onQuit(PlayerDisconnectEvent event) {
         ProxiedPlayer player = event.getPlayer();
         UserManager userManager = Clans.getUserManager();
-        if(userManager.isRegistered(player.getName())) return;
+        if(!userManager.isRegistered(player.getName())) return;
 
         User user = userManager.getUser(player.getName());
         user.offline();

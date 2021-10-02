@@ -45,21 +45,32 @@ public class ClanWarQueueManager {
                 String playerList = "";
                 boolean ABORT = false;
                 for (Subscriber subscriber : opponents) {
-                    if(!playerList.isEmpty()) playerList += ":";
+                    if (!playerList.isEmpty()) playerList += ":";
 
                     playerList += String.join(":", subscriber.getSubscribers());
                     for (String playerName : subscriber.getSubscribers()) {
                         User user = Clans.getUserManager().getUser(playerName);
-                        if(!user.isOnline()) {
+                        if (!user.isOnline()) {
                             ABORT = true;
                             break;
                         }
                         user.getPlayer().sendMessage(Clans.PREFIX + Color.GREEN + "Match found! Prepare Match-Server...");
                         user.getPlayer().sendTitle("§aMatch found!", "§7Are you ready?");
                     }
-                    if(ABORT) {
-                        subscriber.removeFromQueue(true);
+
+                    subscriber.removeFromQueue(ABORT);
+                }
+
+                if(ABORT) {
+                    for (Subscriber subscriber : opponents) {
+                        for (String playerName : subscriber.getSubscribers()) {
+                            User user = Clans.getUserManager().getUser(playerName);
+                            if (!user.isOnline()) continue;
+
+                            user.getPlayer().sendMessage(Clans.PREFIX + Color.RED + "Please rejoin the queue. One of the clans does not have enough fighters...");
+                        }
                     }
+                    return;
                 }
 
                 CreateServerPacket createServerPacket = new CreateServerPacket();
