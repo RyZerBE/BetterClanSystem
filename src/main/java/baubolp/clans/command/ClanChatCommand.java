@@ -37,7 +37,7 @@ public class ClanChatCommand extends Command {
         for (String arg : args) message.append(arg).append(" ");
 
         String finalMessage = message.toString();
-        clan.sendMessage(Clans.PREFIX + "&b" + sender.getName() + " &8» &e" + finalMessage);
+        clan.sendMessage(Clans.PREFIX + Color.AQUA + sender.getName() + Color.DARK_GRAY + " » " + Color.YELLOW + finalMessage);
         return true;
     }
 }
