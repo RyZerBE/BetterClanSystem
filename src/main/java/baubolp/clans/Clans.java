@@ -1,6 +1,7 @@
 package baubolp.clans;
 
 import baubolp.clans.clan.ClanManager;
+import baubolp.clans.command.ClanChatCommand;
 import baubolp.clans.command.ClanCommand;
 import baubolp.clans.command.QueueCommand;
 import baubolp.clans.command.subcommand.SubCommandManager;
@@ -49,6 +50,7 @@ public class Clans extends Plugin {
         CommandMap commandMap = this.getProxy().getCommandMap();
         commandMap.registerCommand(new ClanCommand());
         commandMap.registerCommand(new QueueCommand());
+        commandMap.registerCommand(new ClanChatCommand());
     }
 
     public static Clans getInstance() {
