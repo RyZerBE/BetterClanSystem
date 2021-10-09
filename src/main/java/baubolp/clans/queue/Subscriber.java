@@ -1,6 +1,7 @@
 package baubolp.clans.queue;
 
 import baubolp.clans.Clans;
+import baubolp.clans.clan.Clan;
 import baubolp.clans.player.User;
 import dev.waterdog.waterdogpe.logger.Color;
 import dev.waterdog.waterdogpe.player.ProxiedPlayer;
@@ -54,16 +55,21 @@ public class Subscriber {
     }
 
     public void removeFromQueue(boolean LEAVE) {
+        Clan clan = null;
         for(String playerName : getSubscribers()) {
             User user = Clans.getUserManager().getUser(playerName);
             if (!user.isOnline()) continue;
+
+            if(clan == null)
+            clan = user.getClan();
 
             if (LEAVE)
                 user.getPlayer().sendMessage(Clans.PREFIX + Color.RED + "One participant has gone offline. Your clan has been removed from the queue!");
             else
                 user.getPlayer().sendMessage(Clans.PREFIX + Color.RED + "Your clan has left the ClanWar queue.");
         }
-        Clans.getQueueManager().removeFromEloQueue(this);
+        if(clan == null) return;
         Clans.getQueueManager().removeFromFunQueue(this);
+        clan.leaveQueue();
     }
 }
