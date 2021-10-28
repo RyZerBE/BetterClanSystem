@@ -53,7 +53,9 @@ public class JoinQueueCommand extends SubCommand {
         }
 
         for(String playerName : players) {
-            if(Collections.frequency(players, playerName) > 1 && !sender.hasPermission("clan.admin")) {
+            long count = players.stream().filter(playerName::equals).count();
+            System.out.println(count);
+            if((count > 1) && (!sender.hasPermission("clan.admin"))) {
                 sender.sendMessage(Clans.PREFIX + Color.RED + "Please enter 4 different participants!");
                 return;
             }
