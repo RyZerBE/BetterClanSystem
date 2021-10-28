@@ -4,7 +4,6 @@ import baubolp.clans.Clans;
 import baubolp.clans.clan.Clan;
 import baubolp.clans.player.User;
 import dev.waterdog.waterdogpe.logger.Color;
-import dev.waterdog.waterdogpe.player.ProxiedPlayer;
 
 import java.util.List;
 

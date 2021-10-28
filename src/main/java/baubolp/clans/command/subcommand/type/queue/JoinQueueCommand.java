@@ -53,10 +53,10 @@ public class JoinQueueCommand extends SubCommand {
         }
 
         for(String playerName : players) {
-           /* if(Collections.frequency(players, playerName) > 1) {
-                sender.sendMessage(Clans.PREFIX + Color.RED + "Please enter 4 participants!");
+            if(Collections.frequency(players, playerName) > 1 && !sender.hasPermission("clan.admin")) {
+                sender.sendMessage(Clans.PREFIX + Color.RED + "Please enter 4 different participants!");
                 return;
-            }*/ //todo: after tests enable!!!
+            }
             if(!Clans.getUserManager().isRegistered(playerName)) {
                 sender.sendMessage(Clans.PREFIX + Color.RED + "The specified players must be online and in your clan to join in a ClanWar!");
                 return;
@@ -76,11 +76,11 @@ public class JoinQueueCommand extends SubCommand {
         if(!type.equalsIgnoreCase("ELO") && !type.equalsIgnoreCase("FUN")) {
             sender.sendMessage(Clans.PREFIX + Color.RED + "Unknown Type.");
             sender.sendMessage(Clans.PREFIX + Color.GRAY + "Types: " + Color.DARK_GREEN + "FUN " + Color.GRAY + "OR " + Color.AQUA + "ELO");
+            sender.sendMessage(Clans.PREFIX + Color.RED + "Currently is only \"ELO\" playable!");
             return;
         }
 
-        boolean fun = true;
-        if(type.equalsIgnoreCase("ELO")) fun = false;
+        boolean fun = !type.equalsIgnoreCase("ELO");
 
         Subscriber subscriber = new Subscriber(clan.getName(), players, fun);
         clan.joinQueue(subscriber);
