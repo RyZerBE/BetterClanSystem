@@ -64,6 +64,9 @@ public class InviteCommand extends SubCommand {
 
         inviteUser.addClanRequest(user.getClan(), true);
         sender.sendMessage(Clans.PREFIX + Color.GREEN + "The player has been invited to join your clan");
+        if(inviteUser.isOnline()) {
+            inviteUser.getPlayer().sendMessage(Clans.PREFIX + Color.GREEN + "You were invited by the clan " + Color.YELLOW + user.getClan().getName());
+        }
     }
 
     @Override
