@@ -82,6 +82,16 @@ public class JoinQueueCommand extends SubCommand {
             return;
         }
 
+        if(type.equalsIgnoreCase("FUN")) {
+            sender.sendMessage(Clans.PREFIX + Color.RED + "Please use the ELO Queue. FUN Queue comes soon maybe..");
+            return;
+        }
+
+        if(!Clans.getQueueManager().join) {
+            sender.sendMessage(Clans.PREFIX + Color.RED + "The ClanWar queue is currently deactivated!");
+            return;
+        }
+
         boolean fun = !type.equalsIgnoreCase("ELO");
 
         Subscriber subscriber = new Subscriber(clan.getName(), players, fun);

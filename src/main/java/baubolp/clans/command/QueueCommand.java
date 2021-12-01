@@ -5,6 +5,7 @@ import baubolp.clans.command.subcommand.SubCommand;
 import baubolp.clans.command.subcommand.SubCommandManager;
 import baubolp.clans.command.subcommand.type.queue.JoinQueueCommand;
 import baubolp.clans.command.subcommand.type.queue.LeaveQueueCommand;
+import baubolp.clans.command.subcommand.type.queue.ToggleCommand;
 import dev.waterdog.waterdogpe.command.Command;
 import dev.waterdog.waterdogpe.command.CommandSender;
 import dev.waterdog.waterdogpe.logger.Color;
@@ -16,6 +17,7 @@ public class QueueCommand extends Command {
         SubCommandManager subCommandManager = Clans.getInstance().getSubCommandManager();
         subCommandManager.registerSubCommand(this, new JoinQueueCommand());
         subCommandManager.registerSubCommand(this, new LeaveQueueCommand());
+        subCommandManager.registerSubCommand(this, new ToggleCommand());
     }
 
     @Override
