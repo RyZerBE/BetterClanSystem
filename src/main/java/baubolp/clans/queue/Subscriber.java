@@ -69,6 +69,7 @@ public class Subscriber {
         }
         if(clan == null) return;
         Clans.getQueueManager().removeFromFunQueue(this);
+        Clans.getQueueManager().removeFromEloQueue(this);
         clan.leaveQueue();
     }
 }

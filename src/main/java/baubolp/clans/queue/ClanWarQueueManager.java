@@ -16,6 +16,7 @@ public class ClanWarQueueManager {
     public List<Subscriber> queue;
     public List<Subscriber> funQueue;
     public int queueTick;
+    public boolean join = true;
 
     public ClanWarQueueManager() {
         this.queue = new ArrayList<>();
