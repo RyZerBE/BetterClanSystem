@@ -59,6 +59,18 @@ public class CreateCommand extends SubCommand {
             return;
         }
 
+        if(clanName.indexOf("ä") != -1|| clanName.indexOf("ö") != -1|| clanName.indexOf("é") != -1|| clanName.indexOf("ü") != -1 || clanName.indexOf("á") != -1 ||
+           clanName.indexOf("Ä") != -1|| clanName.indexOf("Ö") != -1|| clanName.indexOf("É") != -1|| clanName.indexOf("Ü") != -1 || clanName.indexOf("Á") != -1) {
+            sender.sendMessage(Clans.PREFIX + Color.RED + "You can't use the characters ä, ö, ü, è, á ... ");
+            return;
+        }
+
+        if(clanTag.indexOf("ä") != -1|| clanTag.indexOf("ö") != -1|| clanTag.indexOf("é") != -1|| clanTag.indexOf("ü") != -1 || clanTag.indexOf("á") != -1 ||
+                clanTag.indexOf("Ä") != -1|| clanTag.indexOf("Ö") != -1|| clanTag.indexOf("É") != -1|| clanTag.indexOf("Ü") != -1 || clanTag.indexOf("Á") != -1) {
+            sender.sendMessage(Clans.PREFIX + Color.RED + "You can't use the characters ä, ö, ü, è, á ... ");
+            return;
+        }
+
         SimpleDateFormat dateFormat = new SimpleDateFormat("d.M.y HH:mm");
         String date = dateFormat.format(new Date());
         Clan clan = new Clan(clanName.replace(" ", ""), clanTag, sender.getName(), "§e", date, "Only advertising for your clan is allowed!", Clan.INVITE, 1000);
