@@ -21,6 +21,25 @@ public class DeleteClanCommand extends SubCommand {
         if(!userManager.isRegistered(sender.getName())) return;
         User user = userManager.getUser(sender.getName());
 
+        if(args.length >= 2 && sender.hasPermission("clan.admin")) {
+            Clan clan = Clans.getClanManager().getClan(args[1]);
+            if(clan == null) {
+                sender.sendMessage(Clans.PREFIX + Color.RED + "The clan aren't valid!");
+                return;
+            }
+
+            if(args.length == 3) {
+                if(args[2].equals("confirm")) {
+                    clan.delete();
+                    sender.sendMessage(Clans.PREFIX + Color.RED + "You deleted the clan " + Color.YELLOW + clan.getName() + Color.RED + " successfully!");
+                }else {
+                    sender.sendMessage(Clans.PREFIX + Color.RED + "Are you sure you want to delete the clan " + Color.YELLOW + clan.getName() + Color.RED + "?");
+                    sender.sendMessage(Clans.PREFIX + Color.YELLOW + "Use /clan delete " + clan.getName() + " confirm are you sure");
+                }
+            }
+            return;
+        }
+
         if(!user.isInClan()) {
             sender.sendMessage(Clans.PREFIX + Color.RED + "You are clanless");
             return;
