@@ -12,6 +12,8 @@ import dev.waterdog.waterdogpe.logger.Color;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class CreateCommand extends SubCommand {
 
@@ -59,15 +61,16 @@ public class CreateCommand extends SubCommand {
             return;
         }
 
-        if(clanName.indexOf("ä") != -1|| clanName.indexOf("ö") != -1|| clanName.indexOf("é") != -1|| clanName.indexOf("ü") != -1 || clanName.indexOf("á") != -1 ||
-           clanName.indexOf("Ä") != -1|| clanName.indexOf("Ö") != -1|| clanName.indexOf("É") != -1|| clanName.indexOf("Ü") != -1 || clanName.indexOf("Á") != -1) {
-            sender.sendMessage(Clans.PREFIX + Color.RED + "You can't use the characters ä, ö, ü, è, á ... ");
+        Pattern pattern = Pattern.compile("[a-zA-Z0-9]*");
+        Matcher matcherName = pattern.matcher(clanName);
+        Matcher matcherTag = pattern.matcher(clanTag);
+
+        if(!matcherName.matches()) {
+            sender.sendMessage(Clans.PREFIX + Color.RED + "You can only use letters from A - Z, a - z and numbers in your clan name!");
             return;
         }
-
-        if(clanTag.indexOf("ä") != -1|| clanTag.indexOf("ö") != -1|| clanTag.indexOf("é") != -1|| clanTag.indexOf("ü") != -1 || clanTag.indexOf("á") != -1 ||
-                clanTag.indexOf("Ä") != -1|| clanTag.indexOf("Ö") != -1|| clanTag.indexOf("É") != -1|| clanTag.indexOf("Ü") != -1 || clanTag.indexOf("Á") != -1) {
-            sender.sendMessage(Clans.PREFIX + Color.RED + "You can't use the characters ä, ö, ü, è, á ... ");
+        if(!matcherTag.matches()) {
+            sender.sendMessage(Clans.PREFIX + Color.RED + "You can only use letters from A - Z, a - z and numbers in your clan tag!");
             return;
         }
 
