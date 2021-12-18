@@ -94,8 +94,13 @@ public class Clan {
         this.elo = elo;
     }
 
-    public void setClanOwner(String owner) {
+    public void setClanOwner(String owner, boolean mysql) {
         this.clan_owner = owner;
+        if(mysql) {
+            MySQL.createAsync(mySQL -> {
+                mySQL.execute("UPDATE `Clans` SET clan_owner='" + owner + "' WHERE clan_name='" + this.name + "'");
+            }, e -> Clans.getInstance().getProxy().getLogger().error("Connection to clan database failed!"), null);
+        }
     }
 
     public void setColor(String color) {

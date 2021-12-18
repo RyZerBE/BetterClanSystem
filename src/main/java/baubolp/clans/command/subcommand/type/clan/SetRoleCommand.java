@@ -70,6 +70,7 @@ public class SetRoleCommand extends SubCommand {
             return;
         }
 
+        Role role = roleManager.getRole(roleName);
         if(user.getRole().getPriority() <= roleUser.getRole().getPriority()) {
             sender.sendMessage(Clans.PREFIX + Color.RED + "You cannot give a role to a player who has the same or a higher role!");
             return;
@@ -82,5 +83,16 @@ public class SetRoleCommand extends SubCommand {
 
         roleUser.setRole(roleName, true);
         sender.sendMessage(Clans.PREFIX + Color.GREEN + "You gave the player " + Color.YELLOW + playerName + Color.GREEN + " the role " + Color.AQUA + roleName);
+        if(role.getName().equals("Leader")) {
+            User owner = clan.getOwnerUser();
+            if(owner == null) {
+                sender.sendMessage(Clans.PREFIX + Color.RED + "Something went wrong!");
+                return;
+            }
+
+            clan.setClanOwner(roleUser.getPlayerName(), true);
+            owner.setRole("Member", true);
+            sender.sendMessage(Clans.PREFIX + Color.GREEN + "You gave the clan to " + Color.YELLOW + playerName);
+        }
     }
 }
