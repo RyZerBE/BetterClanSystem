@@ -17,6 +17,7 @@ public class HelpCommand extends SubCommand {
         StringBuilder message = new StringBuilder();
         message.append(Clans.PREFIX).append(Color.YELLOW).append("Help list of Clans:");
         for (SubCommand subCommand : Clans.getInstance().getSubCommandManager().getSubCommands(parent)) {
+            if(subCommand.isAdminCommand()) continue;
             message.append("\n" + "/clan ").append(subCommand.getName())
                     .append(" ").append(Color.DARK_GRAY)
                     .append("| ").append(Color.YELLOW).append(subCommand.getDescription());

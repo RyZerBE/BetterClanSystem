@@ -29,6 +29,8 @@ public class ClanCommand extends Command {
         subCommandManager.registerSubCommand(this, new SetRoleCommand());
         subCommandManager.registerSubCommand(this, new JoinClanCommand());
         subCommandManager.registerSubCommand(this, new LeaveCommand());
+        subCommandManager.registerSubCommand(this, new ResetEloCommand());
+        subCommandManager.registerSubCommand(this, new SetEloCommand());
     }
 
     @Override
