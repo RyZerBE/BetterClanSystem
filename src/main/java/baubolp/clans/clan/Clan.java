@@ -151,6 +151,8 @@ public class Clan {
             }
         }, e -> Clans.getInstance().getProxy().getLogger().error("Connection to clan database failed!"), null);
         ClanManager clanManager = Clans.getClanManager();
+        this.getSubscriber().removeFromQueue(false);
+        this.leaveQueue();
         clanManager.removeClan(this);
     }
 
